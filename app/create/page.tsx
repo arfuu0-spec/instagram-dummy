@@ -1,4 +1,4 @@
-'type client'; // Agar Next.js mein client component ke liye use karte ho
+'use client'; // Agar Next.js mein client component ke liye use karte ho
 import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
