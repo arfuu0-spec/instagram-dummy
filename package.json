@@ -1,23 +1,116 @@
-{
-  "name": "instagram-dummy",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start -p $PORT",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.39.0",
-    "next": "14.1.0",
-    "react": "^18",
-    "react-dom": "^18"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "typescript": "^5"
+'use client'
+import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabase'
+
+export default function Home() {
+  const [posts, setPosts] = useState<any[]>([])
+  const [caption, setCaption] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+  const [uploading, setUploading] = useState(false)
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
+
+  async function fetchPosts() {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error('Error fetching posts:', error)
+    } else {
+      setPosts(data || [])
+    }
   }
+
+  async function createPost(e: React.FormEvent) {
+    e.preventDefault()
+    if (!imageUrl) return alert('Please enter an image URL!')
+
+    setUploading(true)
+    const { error } = await supabase
+      .from('posts')
+      .insert([{ caption, image_url: imageUrl }])
+
+    setUploading(false)
+
+    if (error) {
+      console.error('Error creating post:', error)
+      alert('Error posting content!')
+    } else {
+      setCaption('')
+      setImageUrl('')
+      fetchPosts()
+    }
+  }
+
+  return (
+    <main className="min-h-screen bg-black text-white flex flex-col items-center pb-12">
+      {/* Top Header */}
+      <header className="w-full max-w-md border-b border-zinc-800 p-4 flex justify-between items-center sticky top-0 bg-black z-10">
+        <h1 className="text-xl font-bold tracking-wider">Apps-Dummy</h1>
+        <span>❤️</span>
+      </header>
+
+      {/* Upload Form Box */}
+      <form onSubmit={createPost} className="w-full max-w-md bg-zinc-900 border border-zinc-800 p-4 rounded-lg my-4 flex flex-col gap-3">
+        <h2 className="text-sm font-semibold text-zinc-300">Create New Post</h2>
+        <input
+          type="text"
+          placeholder="Image URL (e.g., https://...)"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+          className="bg-black border border-zinc-700 p-2 rounded text-sm text-white outline-none focus:border-zinc-500"
+        />
+        <input
+          type="text"
+          placeholder="Write a caption..."
+          value={caption}
+          onChange={(e) => setCaption(e.target.value)}
+          className="bg-black border border-zinc-700 p-2 rounded text-sm text-white outline-none focus:border-zinc-500"
+        />
+        <button
+          type="submit"
+          disabled={uploading}
+          className="bg-white text-black font-semibold py-2 rounded text-sm hover:bg-zinc-200 transition"
+        >
+          {uploading ? 'Posting...' : 'Share Post'}
+        </button>
+      </form>
+
+      {/* Feed Section */}
+      <div className="w-full max-w-md flex flex-col gap-6 px-2">
+        {posts.length === 0 ? (
+          <p className="text-center text-zinc-500 mt-6">No posts found. Create your first post above!</p>
+        ) : (
+          posts.map((post) => (
+            <div key={post.id} className="border border-zinc-800 rounded-lg p-4 bg-zinc-900">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 rounded-full bg-zinc-700"></div>
+                <span className="text-sm font-semibold">gamer_user</span>
+              </div>
+              <div className="w-full h-64 bg-zinc-800 rounded flex items-center justify-center overflow-hidden">
+                {post.image_url ? (
+                  <img src={post.image_url} alt="Post media" className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-zinc-500">No Image</span>
+                )}
+              </div>
+              <div className="mt-3 flex gap-4 text-xl">
+                <span>❤️</span>
+                <span>💬</span>
+                <span>↗️</span>
+              </div>
+              <p className="mt-2 text-sm text-zinc-300">
+                <strong className="text-white mr-2">gamer_user</strong>
+                {post.caption}
+              </p>
+            </div>
+          ))
+        )}
+      </div>
+    </main>
+  )
 }
