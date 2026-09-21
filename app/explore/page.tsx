@@ -1,10 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from '../lib/supabase';
 
 export default function ExplorePage() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -31,14 +27,12 @@ export default function ExplorePage() {
     }
   };
 
-  // Filter posts based on caption search
   const filteredPosts = posts.filter((post) =>
     post.caption?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div style={{ padding: '20px', paddingBottom: '80px', maxWidth: '600px', margin: '0 auto', fontFamily: 'sans-serif', color: '#fff' }}>
-      {/* Search Bar */}
       <div style={{ marginBottom: '20px' }}>
         <input
           type="text"
@@ -58,7 +52,6 @@ export default function ExplorePage() {
         />
       </div>
 
-      {/* Posts Grid */}
       {loading ? (
         <p style={{ color: '#888', textAlign: 'center' }}>Loading explore...</p>
       ) : filteredPosts.length === 0 ? (
