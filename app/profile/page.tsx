@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../../lib/supabase';
 
 export default function ProfilePage() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -28,7 +28,6 @@ export default function ProfilePage() {
 
   return (
     <div style={{ padding: '20px', paddingBottom: '80px', maxWidth: '600px', margin: '0 auto', fontFamily: 'sans-serif', color: '#fff' }}>
-      {/* Profile Header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
         <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#333', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px' }}>
           👤
