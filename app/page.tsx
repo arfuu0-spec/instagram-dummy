@@ -31,7 +31,7 @@ export default function Home() {
       </header>
 
       {/* Feed Section */}
-      <div className="w-full max-w-md flex flex-col gap-6 py-4 px-2">
+      <div className="w-full max-w-md flex flex-col gap-6 py-4 px-2 mb-16">
         {posts.length === 0 ? (
           <p className="text-center text-zinc-500 mt-10">No posts found. Add some posts in Supabase!</p>
         ) : (
@@ -41,9 +41,9 @@ export default function Home() {
                 <div className="w-8 h-8 rounded-full bg-zinc-700"></div>
                 <span className="text-sm font-semibold">gamer_user</span>
               </div>
-              <div className="w-full h-64 bg-zinc-800 rounded flex items-center justify-center overflow-hidden">
+              <div className="w-full bg-black rounded flex items-center justify-center overflow-hidden">
                 {post.image_url ? (
-                  <img src={post.image_url} alt="Post media" className="w-full h-full object-cover" />
+                  <img src={post.image_url} alt="Post media" className="w-full h-auto object-contain" />
                 ) : (
                   <span className="text-zinc-500">No Image</span>
                 )}
