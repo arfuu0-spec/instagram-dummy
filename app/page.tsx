@@ -24,26 +24,22 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center">
-      {/* Top Header */}
       <header className="w-full max-w-md border-b border-zinc-800 p-4 flex justify-between items-center sticky top-0 bg-black z-10">
         <h1 className="text-xl font-bold tracking-wider">Apps-Dummy</h1>
         <span>❤️</span>
       </header>
 
-      {/* Feed Section */}
       <div className="w-full max-w-md flex flex-col gap-6 py-4 px-2 mb-16">
         {posts.length === 0 ? (
           <p className="text-center text-zinc-500 mt-10">No posts found. Add some posts in Supabase!</p>
         ) : (
           posts.map((post) => (
             <div key={post.id} className="border border-zinc-800 rounded-lg bg-zinc-900 overflow-hidden">
-              {/* User Info Header */}
               <div className="flex items-center gap-2 p-3">
                 <div className="w-8 h-8 rounded-full bg-zinc-700"></div>
                 <span className="text-sm font-semibold">gamer_user</span>
               </div>
 
-              {/* Fixed Aspect Ratio Image Container (Instagram Style) */}
               <div className="w-full aspect-[4/5] bg-black relative flex items-center justify-center">
                 {post.image_url ? (
                   <img 
@@ -56,7 +52,6 @@ export default function Home() {
                 )}
               </div>
 
-              {/* Actions & Caption */}
               <div className="p-3">
                 <div className="flex gap-4 mb-2">
                   <span>❤️</span>
