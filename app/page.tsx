@@ -23,43 +23,48 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center">
-      <header className="w-full max-w-md border-b border-zinc-800 p-4 flex justify-between items-center sticky top-0 bg-black z-10">
-        <h1 className="text-xl font-bold tracking-wider">Apps-Dummy</h1>
+    <main style={{ minHeight: '100vh', background: '#000', color: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/* Top Header */}
+      <header style={{ width: '100%', maxWidth: '400px', borderBottom: '1px solid #222', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, background: '#000', zIndex: 10 }}>
+        <h1 style={{ fontSize: '18px', fontWeight: 'bold', margin: 0 }}>Apps-Dummy</h1>
         <span>❤️</span>
       </header>
 
-      <div className="w-full max-w-md flex flex-col gap-6 py-4 px-2 mb-16">
+      {/* Feed Section */}
+      <div style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '16px', padding: '12px 0', paddingBottom: '70px' }}>
         {posts.length === 0 ? (
-          <p className="text-center text-zinc-500 mt-10">No posts found. Add some posts in Supabase!</p>
+          <p style={{ textAlign: 'center', color: '#888', marginTop: '40px' }}>No posts found.</p>
         ) : (
           posts.map((post) => (
-            <div key={post.id} className="border border-zinc-800 rounded-lg bg-zinc-900 overflow-hidden">
-              <div className="flex items-center gap-2 p-3">
-                <div className="w-8 h-8 rounded-full bg-zinc-700"></div>
-                <span className="text-sm font-semibold">gamer_user</span>
+            <div key={post.id} style={{ border: '1px solid #222', borderRadius: '8px', background: '#111', overflow: 'hidden' }}>
+              {/* User Info Header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#333' }}></div>
+                <span style={{ fontSize: '14px', fontWeight: '600' }}>gamer_user</span>
               </div>
 
-              <div className="w-full aspect-[4/5] bg-black relative flex items-center justify-center">
+              {/* Fixed 4:5 Aspect Ratio Image Container */}
+              <div style={{ width: '100%', aspectRatio: '4/5', background: '#000', position: 'relative', overflow: 'hidden' }}>
                 {post.image_url ? (
                   <img 
                     src={post.image_url} 
                     alt="Post media" 
-                    className="w-full h-full object-cover absolute inset-0" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }} 
                   />
                 ) : (
-                  <span className="text-zinc-500">No Image</span>
+                  <span style={{ color: '#888', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>No Image</span>
                 )}
               </div>
 
-              <div className="p-3">
-                <div className="flex gap-4 mb-2">
+              {/* Actions & Caption */}
+              <div style={{ padding: '10px 12px' }}>
+                <div style={{ display: 'flex', gap: '15px', marginBottom: '8px', fontSize: '18px' }}>
                   <span>❤️</span>
                   <span>💬</span>
                   <span>↗️</span>
                 </div>
-                <p className="text-sm text-zinc-300">
-                  <strong className="text-white mr-2">gamer_user</strong>
+                <p style={{ fontSize: '14px', color: '#ccc', margin: 0 }}>
+                  <strong style={{ color: '#fff', marginRight: '8px' }}>gamer_user</strong>
                   {post.caption}
                 </p>
               </div>
