@@ -11,6 +11,8 @@ function BottomNav() {
       bottom: 0,
       left: 0,
       right: 0,
+      maxWidth: '400px',
+      margin: '0 auto',
       background: '#000',
       borderTop: '1px solid #222',
       display: 'flex',
@@ -42,7 +44,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ background: '#000', color: '#fff', margin: 0, paddingBottom: '60px' }}>
-        {children}
+        <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+          {children}
+        </div>
         <BottomNav />
       </body>
     </html>
