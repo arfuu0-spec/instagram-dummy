@@ -11,12 +11,12 @@ function BottomNav() {
       bottom: 0,
       left: 0,
       right: 0,
-      maxWidth: '400px',
-      margin: '0 auto',
+      width: '100%',
       background: '#000',
       borderTop: '1px solid #222',
       display: 'flex',
       justifyContent: 'space-around',
+      alignItems: 'center',
       padding: '12px 0',
       zIndex: 1000,
     }}>
@@ -43,8 +43,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ background: '#000', color: '#fff', margin: 0, paddingBottom: '60px' }}>
-        <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+      <body style={{ background: '#000', color: '#fff', margin: 0, paddingBottom: '60px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ width: '100%', maxWidth: '400px' }}>
           {children}
         </div>
         <BottomNav />
